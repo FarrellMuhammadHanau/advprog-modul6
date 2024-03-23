@@ -84,7 +84,7 @@ let (status_line, filename) = match &request_line[..] {
 };
 ```
 
-Mengapa browser membutuhkan waktu yang lama saat ingin membuka beberapa 127.0.0.1 dengan 127.0.0.1\sleep salah satunya?
+Mengapa browser membutuhkan waktu yang lama saat ingin membuka beberapa 127.0.0.1 dengan 127.0.0.1\sleep salah satunya? <br />
 Alasan mengapa browser membutuhkan waktu lama adalah karena setiap request di tangani oleh server secara bergantian. Request ke 127.0.0.1\sleep akan menyebabkan server melakukan sleep selama 5 detik. Hal ini menyebabkan ketika kita ingin membuka url 127.0.0.1 lain, maka server menunggu hingga request 127.0.0.1\sleep selesai di tangani, sehingga membutuhkan waktu yang cukup lama untuk membuka url lain ke server tersebut.
 
 ### Reflection 5
@@ -164,5 +164,5 @@ impl Worker {
 }
 ```
 
-Penjelasan konsep ThreadPool yang diimplementasi
-Implementasi dari ThreadPool pada proyek ini menggunakan 3 struct yaitu ThreadPool, Workers, dan Jobs. Saat ThreadPool di inisiasi dengan new, maka akan terbuat beberapa instance worker dan sebuah pasangan sender dan receiver dimana receiver telah dilindungi dengan mutual exclusion atau mutex. Worker merupakan suatu objek yang menyimpan suatu thread yang telah di spawn atau dibuat. Sementara itu, jobs merupakan pekerjaan yang akan dieksekusi atau dikerjakan oleh worker. method execute pada ThreadPool akan mengirim suatu job kepada thread yang disimpan oleh worker, yang nantinya akan dieksekusi oleh worker, dimana method ini menggunakan konsep message passing untuk mengirim job ke worker tersebut
+Penjelasan konsep ThreadPool yang diimplementasi: <br />
+Implementasi dari ThreadPool pada proyek ini menggunakan 3 struct yaitu ThreadPool, Workers, dan Jobs. Saat ThreadPool di inisiasi dengan new, maka akan terbuat beberapa instance worker dan sebuah pasangan sender dan receiver dimana receiver telah dilindungi dengan mutual exclusion atau mutex. Worker merupakan suatu objek yang menyimpan suatu thread yang telah di spawn atau dibuat. Sementara itu, jobs merupakan pekerjaan yang akan dieksekusi atau dikerjakan oleh worker. Untuk mengerjakan suatu task dengan konsep ThreadPool, kita dapat menggunakan method execute pada ThreadPool yang akan mengirim suatu job kepada thread yang disimpan oleh worker, yang nantinya akan dieksekusi oleh worker tersebut, dimana method ini menggunakan konsep message passing untuk mengirim job ke worker tersebut.
