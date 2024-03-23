@@ -164,5 +164,5 @@ impl Worker {
 }
 ```
 
-Penjelasan konsep ThreadPool yang diimplementasi: <br />
+Penjelasan konsep ThreadPool yang diimplementasi: 
 Implementasi dari ThreadPool pada proyek ini menggunakan 3 struct yaitu ThreadPool, Workers, dan Jobs. Saat ThreadPool di inisiasi dengan new, maka akan terbuat beberapa instance worker dan sebuah pasangan sender dan receiver dimana receiver telah dilindungi dengan mutual exclusion atau mutex. Worker merupakan suatu objek yang menyimpan suatu thread yang telah di spawn atau dibuat. Sementara itu, jobs merupakan pekerjaan yang akan dieksekusi atau dikerjakan oleh worker. Untuk mengerjakan suatu task dengan konsep ThreadPool, kita dapat menggunakan method execute pada ThreadPool yang akan mengirim suatu job kepada thread yang disimpan oleh worker, yang nantinya akan dieksekusi oleh worker tersebut, dimana method ini menggunakan konsep message passing untuk mengirim job ke worker tersebut.
