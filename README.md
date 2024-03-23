@@ -70,3 +70,19 @@ let (status_line, filename) = if request_line == "GET / HTTP/1.1" {
 ```
 Mengapa refactor diperlukan:
 Pada code sebelum refactor, ada beberapa repetisi atau code yang duplikat. Bagian code yang duplikat adalah bagian saat kita membaca dari suatu file html lalu memasukkannya sebagai body dari response. Kita dapat mengeluarkan bagian code tersebut setelah block if-else, dimana if-else hanya berisi peng-assign an dari status line dan file html yang akan dijadikan body response.
+
+### Reflection Commit 4
+1. Menambahkan 1 kasus baru yaitu ketika path nya berupa /sleep, dimana path tersebut menunggu selama 5 detik sebelum dapat dijalankan
+```
+let (status_line, filename) = match &request_line[..] {
+    "GET / HTTP/1.1" => ("HTTP/1.1 200 OK", "hello.html"),
+    "GET /sleep HTTP/1.1" => {
+        thread::sleep(Duration::from_secs(5));
+        ("HTTP/1.1 200 OK", "hello.html")
+    }
+    _ => ("HTTP/1.1 404 NOT FOUND", "404.html"),
+};
+```
+
+Mengapa browser membutuhkan waktu yang lama saat ingin membuka beberapa 127.0.0.1 dengan 127.0.0.1\sleep salah satunya?
+Alasan mengapa browser membutuhkan waktu lama adalah karena setiap request di tangani oleh server secara bergantian. Request ke 127.0.0.1\sleep akan menyebabkan server melakukan sleep selama 5 detik. Hal ini menyebabkan ketika kita ingin membuka url 127.0.0.1 lain, maka server menunggu hingga request 127.0.0.1\sleep selesai di tangani, sehingga membutuhkan waktu yang cukup lama untuk membuka url lain ke server tersebut.
